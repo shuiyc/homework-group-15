@@ -1,0 +1,1148 @@
+SETTINGS:
+SWplaintext=0x3b5c77a4921f9718 @64
+SWkey      =0x92f09952c625e3e9 d7a060f714c0292b ba912e6f1055fed2 ba912e6f1055fed2 @256
+SWcipher   =0xd6522035c1c0c6c1 @64
+ENDSETTINGS
+
+PARAMETERS:
+ROUND = 5
+RC1=0x13198a2e03707344
+RC2=0xa4093822299f31d0
+RC3=0x082efa98ec4e6c89
+RC4=0x452821e638d01377
+RC5=0xbe5466cf34e90c6c
+RC6=0xc0ac29b7c97c50dd
+RC7=0x3f84d5b5b5470917
+RC8=0x9216d5d98979fb1b
+Sbox=[0xc,0xa,0xd,0x3,0xe,0xb,0xf,0x7,0x8,0x9,0x1,0x5,0x0,0x2,0x4,0x6]
+alpha = 0x243f6a8885a308d3
+ENDPARAMETERS 
+
+SWENC:
+INPUT(2, PLAIN, 64 ,1, RK, 64, 14);
+OUTPUT(1,CIPHER,64,1); 
+DECOMPOSE(PLAIN,64,2,state1,32,state2,32);
+CASCADE(2,state1,32,state2,32,state,64);
+
+XOR(state,64,RK[0],64,state,64);
+XOR(state,64,RK[1],64,state,64);
+
+
+
+DECOMPOSE(state,64,16,<m_i, 4, i, 0, 16, 1>);
+for i in range(16)
+	SBOX(m_i,4,m_i,4,$Sbox);
+CASCADE(16,<m_i, 4, i, 0, 16, 1>,state,64);
+
+XOR(state,64,RC1,64,state,64);
+XOR(state,64,RK[2],64,state,64);
+
+DECOMPOSE(state,64,16,<p_i, 4, i, 0, 16, 1>);
+CASCADE(16,p_0,4,p_11,4,p_6,4,p_13,4,p_10,4,p_1,4,p_12,4,p_7,4,p_5,4,p_14,4,p_3,4,p_8,4,p_15,4,p_4,4,p_9,4,p_2,4,state,64);
+
+DECOMPOSE(state,64,16,<p_i, 4, i, 0, 16, 1>);
+XOR(p_1,4,p_2,4,temp1,4);
+XOR(temp1,4,p_3,4,pout_0,4);
+XOR(p_0,4,p_2,4,temp2,4);
+XOR(temp2,4,p_3,4,pout_1,4);
+XOR(p_0,4,p_1,4,temp3,4);
+XOR(temp3,4,p_3,4,pout_2,4);
+XOR(p_0,4,p_1,4,temp4,4);
+XOR(temp4,4,p_2,4,pout_3,4);
+XOR(p_5,4,p_6,4,temp5,4);
+XOR(temp5,4,p_7,4,pout_4,4);
+XOR(p_4,4,p_6,4,temp6,4);
+XOR(temp6,4,p_7,4,pout_5,4);
+XOR(p_4,4,p_5,4,temp7,4);
+XOR(temp7,4,p_7,4,pout_6,4);
+XOR(p_4,4,p_5,4,temp8,4);
+XOR(temp8,4,p_6,4,pout_7,4);
+XOR(p_9,4,p_10,4,temp9,4);
+XOR(temp9,4,p_11,4,pout_8,4);
+XOR(p_8,4,p_10,4,temp10,4);
+XOR(temp10,4,p_11,4,pout_9,4);
+XOR(p_8,4,p_9,4,temp11,4);
+XOR(temp11,4,p_11,4,pout_10,4);
+XOR(p_8,4,p_9,4,temp12,4);
+XOR(temp12,4,p_10,4,pout_11,4);
+XOR(p_13,4,p_14,4,temp13,4);
+XOR(temp13,4,p_15,4,pout_12,4);
+XOR(p_12,4,p_14,4,temp14,4);
+XOR(temp14,4,p_15,4,pout_13,4);
+XOR(p_12,4,p_13,4,temp15,4);
+XOR(temp15,4,p_15,4,pout_14,4);
+XOR(p_12,4,p_13,4,temp16,4);
+XOR(temp16,4,p_14,4,pout_15,4);
+CASCADE(16, pout_0,4,pout_1,4,pout_2,4,pout_3,4,pout_4,4,pout_5,4,pout_6,4,pout_7,4,pout_8,4,pout_9,4,pout_10,4,pout_11,4,pout_12,4,pout_13,4,pout_14,4,pout_15,4,state, 64); 				
+
+
+
+
+DECOMPOSE(state,64,16,<m_i, 4, i, 0, 16, 1>);
+for i in range(16)
+	SBOX(m_i,4,m_i,4,$Sbox);
+CASCADE(16,<m_i, 4, i, 0, 16, 1>,state,64);
+
+XOR(state,64,RC2,64,state,64);
+XOR(state,64,RK[3],64,state,64);
+
+DECOMPOSE(state,64,16,<p_i, 4, i, 0, 16, 1>);
+CASCADE(16,p_0,4,p_11,4,p_6,4,p_13,4,p_10,4,p_1,4,p_12,4,p_7,4,p_5,4,p_14,4,p_3,4,p_8,4,p_15,4,p_4,4,p_9,4,p_2,4,state,64);
+
+DECOMPOSE(state,64,16,<p_i, 4, i, 0, 16, 1>);
+XOR(p_1,4,p_2,4,temp1,4);
+XOR(temp1,4,p_3,4,pout_0,4);
+XOR(p_0,4,p_2,4,temp2,4);
+XOR(temp2,4,p_3,4,pout_1,4);
+XOR(p_0,4,p_1,4,temp3,4);
+XOR(temp3,4,p_3,4,pout_2,4);
+XOR(p_0,4,p_1,4,temp4,4);
+XOR(temp4,4,p_2,4,pout_3,4);
+XOR(p_5,4,p_6,4,temp5,4);
+XOR(temp5,4,p_7,4,pout_4,4);
+XOR(p_4,4,p_6,4,temp6,4);
+XOR(temp6,4,p_7,4,pout_5,4);
+XOR(p_4,4,p_5,4,temp7,4);
+XOR(temp7,4,p_7,4,pout_6,4);
+XOR(p_4,4,p_5,4,temp8,4);
+XOR(temp8,4,p_6,4,pout_7,4);
+XOR(p_9,4,p_10,4,temp9,4);
+XOR(temp9,4,p_11,4,pout_8,4);
+XOR(p_8,4,p_10,4,temp10,4);
+XOR(temp10,4,p_11,4,pout_9,4);
+XOR(p_8,4,p_9,4,temp11,4);
+XOR(temp11,4,p_11,4,pout_10,4);
+XOR(p_8,4,p_9,4,temp12,4);
+XOR(temp12,4,p_10,4,pout_11,4);
+XOR(p_13,4,p_14,4,temp13,4);
+XOR(temp13,4,p_15,4,pout_12,4);
+XOR(p_12,4,p_14,4,temp14,4);
+XOR(temp14,4,p_15,4,pout_13,4);
+XOR(p_12,4,p_13,4,temp15,4);
+XOR(temp15,4,p_15,4,pout_14,4);
+XOR(p_12,4,p_13,4,temp16,4);
+XOR(temp16,4,p_14,4,pout_15,4);
+CASCADE(16, pout_0,4,pout_1,4,pout_2,4,pout_3,4,pout_4,4,pout_5,4,pout_6,4,pout_7,4,pout_8,4,pout_9,4,pout_10,4,pout_11,4,pout_12,4,pout_13,4,pout_14,4,pout_15,4,state, 64); 				
+
+
+
+
+DECOMPOSE(state,64,16,<m_i, 4, i, 0, 16, 1>);
+for i in range(16)
+	SBOX(m_i,4,m_i,4,$Sbox);
+CASCADE(16,<m_i, 4, i, 0, 16, 1>,state,64);
+
+XOR(state,64,RC3,64,state,64);
+
+XOR(state,64,RK[4],64,state,64);
+
+DECOMPOSE(state,64,16,<p_i, 4, i, 0, 16, 1>);
+CASCADE(16,p_0,4,p_11,4,p_6,4,p_13,4,p_10,4,p_1,4,p_12,4,p_7,4,p_5,4,p_14,4,p_3,4,p_8,4,p_15,4,p_4,4,p_9,4,p_2,4,state,64);
+
+DECOMPOSE(state,64,16,<p_i, 4, i, 0, 16, 1>);
+XOR(p_1,4,p_2,4,temp1,4);
+XOR(temp1,4,p_3,4,pout_0,4);
+XOR(p_0,4,p_2,4,temp2,4);
+XOR(temp2,4,p_3,4,pout_1,4);
+XOR(p_0,4,p_1,4,temp3,4);
+XOR(temp3,4,p_3,4,pout_2,4);
+XOR(p_0,4,p_1,4,temp4,4);
+XOR(temp4,4,p_2,4,pout_3,4);
+XOR(p_5,4,p_6,4,temp5,4);
+XOR(temp5,4,p_7,4,pout_4,4);
+XOR(p_4,4,p_6,4,temp6,4);
+XOR(temp6,4,p_7,4,pout_5,4);
+XOR(p_4,4,p_5,4,temp7,4);
+XOR(temp7,4,p_7,4,pout_6,4);
+XOR(p_4,4,p_5,4,temp8,4);
+XOR(temp8,4,p_6,4,pout_7,4);
+XOR(p_9,4,p_10,4,temp9,4);
+XOR(temp9,4,p_11,4,pout_8,4);
+XOR(p_8,4,p_10,4,temp10,4);
+XOR(temp10,4,p_11,4,pout_9,4);
+XOR(p_8,4,p_9,4,temp11,4);
+XOR(temp11,4,p_11,4,pout_10,4);
+XOR(p_8,4,p_9,4,temp12,4);
+XOR(temp12,4,p_10,4,pout_11,4);
+XOR(p_13,4,p_14,4,temp13,4);
+XOR(temp13,4,p_15,4,pout_12,4);
+XOR(p_12,4,p_14,4,temp14,4);
+XOR(temp14,4,p_15,4,pout_13,4);
+XOR(p_12,4,p_13,4,temp15,4);
+XOR(temp15,4,p_15,4,pout_14,4);
+XOR(p_12,4,p_13,4,temp16,4);
+XOR(temp16,4,p_14,4,pout_15,4);
+CASCADE(16, pout_0,4,pout_1,4,pout_2,4,pout_3,4,pout_4,4,pout_5,4,pout_6,4,pout_7,4,pout_8,4,pout_9,4,pout_10,4,pout_11,4,pout_12,4,pout_13,4,pout_14,4,pout_15,4,state, 64); 				
+
+
+
+DECOMPOSE(state,64,16,<m_i, 4, i, 0, 16, 1>);
+for i in range(16)
+	SBOX(m_i,4,m_i,4,$Sbox);
+CASCADE(16,<m_i, 4, i, 0, 16, 1>,state,64);
+
+XOR(state,64,RC4,64,state,64);
+
+XOR(state,64,RK[5],64,state,64);
+
+DECOMPOSE(state,64,16,<p_i, 4, i, 0, 16, 1>);
+CASCADE(16,p_0,4,p_11,4,p_6,4,p_13,4,p_10,4,p_1,4,p_12,4,p_7,4,p_5,4,p_14,4,p_3,4,p_8,4,p_15,4,p_4,4,p_9,4,p_2,4,state,64);
+
+DECOMPOSE(state,64,16,<p_i, 4, i, 0, 16, 1>);
+XOR(p_1,4,p_2,4,temp1,4);
+XOR(temp1,4,p_3,4,pout_0,4);
+XOR(p_0,4,p_2,4,temp2,4);
+XOR(temp2,4,p_3,4,pout_1,4);
+XOR(p_0,4,p_1,4,temp3,4);
+XOR(temp3,4,p_3,4,pout_2,4);
+XOR(p_0,4,p_1,4,temp4,4);
+XOR(temp4,4,p_2,4,pout_3,4);
+XOR(p_5,4,p_6,4,temp5,4);
+XOR(temp5,4,p_7,4,pout_4,4);
+XOR(p_4,4,p_6,4,temp6,4);
+XOR(temp6,4,p_7,4,pout_5,4);
+XOR(p_4,4,p_5,4,temp7,4);
+XOR(temp7,4,p_7,4,pout_6,4);
+XOR(p_4,4,p_5,4,temp8,4);
+XOR(temp8,4,p_6,4,pout_7,4);
+XOR(p_9,4,p_10,4,temp9,4);
+XOR(temp9,4,p_11,4,pout_8,4);
+XOR(p_8,4,p_10,4,temp10,4);
+XOR(temp10,4,p_11,4,pout_9,4);
+XOR(p_8,4,p_9,4,temp11,4);
+XOR(temp11,4,p_11,4,pout_10,4);
+XOR(p_8,4,p_9,4,temp12,4);
+XOR(temp12,4,p_10,4,pout_11,4);
+XOR(p_13,4,p_14,4,temp13,4);
+XOR(temp13,4,p_15,4,pout_12,4);
+XOR(p_12,4,p_14,4,temp14,4);
+XOR(temp14,4,p_15,4,pout_13,4);
+XOR(p_12,4,p_13,4,temp15,4);
+XOR(temp15,4,p_15,4,pout_14,4);
+XOR(p_12,4,p_13,4,temp16,4);
+XOR(temp16,4,p_14,4,pout_15,4);
+CASCADE(16, pout_0,4,pout_1,4,pout_2,4,pout_3,4,pout_4,4,pout_5,4,pout_6,4,pout_7,4,pout_8,4,pout_9,4,pout_10,4,pout_11,4,pout_12,4,pout_13,4,pout_14,4,pout_15,4,state, 64); 				
+
+
+
+DECOMPOSE(state,64,16,<m_i, 4, i, 0, 16, 1>);
+for i in range(16)
+	SBOX(m_i,4,m_i,4,$Sbox);
+CASCADE(16,<m_i, 4, i, 0, 16, 1>,state,64);
+
+XOR(state,64,RC5,64,state,64);
+XOR(state,64,RK[6],64,state,64);
+
+DECOMPOSE(state,64,16,<p_i, 4, i, 0, 16, 1>);
+CASCADE(16,p_0,4,p_11,4,p_6,4,p_13,4,p_10,4,p_1,4,p_12,4,p_7,4,p_5,4,p_14,4,p_3,4,p_8,4,p_15,4,p_4,4,p_9,4,p_2,4,state,64);
+
+DECOMPOSE(state,64,16,<p_i, 4, i, 0, 16, 1>);
+XOR(p_1,4,p_2,4,temp1,4);
+XOR(temp1,4,p_3,4,pout_0,4);
+XOR(p_0,4,p_2,4,temp2,4);
+XOR(temp2,4,p_3,4,pout_1,4);
+XOR(p_0,4,p_1,4,temp3,4);
+XOR(temp3,4,p_3,4,pout_2,4);
+XOR(p_0,4,p_1,4,temp4,4);
+XOR(temp4,4,p_2,4,pout_3,4);
+XOR(p_5,4,p_6,4,temp5,4);
+XOR(temp5,4,p_7,4,pout_4,4);
+XOR(p_4,4,p_6,4,temp6,4);
+XOR(temp6,4,p_7,4,pout_5,4);
+XOR(p_4,4,p_5,4,temp7,4);
+XOR(temp7,4,p_7,4,pout_6,4);
+XOR(p_4,4,p_5,4,temp8,4);
+XOR(temp8,4,p_6,4,pout_7,4);
+XOR(p_9,4,p_10,4,temp9,4);
+XOR(temp9,4,p_11,4,pout_8,4);
+XOR(p_8,4,p_10,4,temp10,4);
+XOR(temp10,4,p_11,4,pout_9,4);
+XOR(p_8,4,p_9,4,temp11,4);
+XOR(temp11,4,p_11,4,pout_10,4);
+XOR(p_8,4,p_9,4,temp12,4);
+XOR(temp12,4,p_10,4,pout_11,4);
+XOR(p_13,4,p_14,4,temp13,4);
+XOR(temp13,4,p_15,4,pout_12,4);
+XOR(p_12,4,p_14,4,temp14,4);
+XOR(temp14,4,p_15,4,pout_13,4);
+XOR(p_12,4,p_13,4,temp15,4);
+XOR(temp15,4,p_15,4,pout_14,4);
+XOR(p_12,4,p_13,4,temp16,4);
+XOR(temp16,4,p_14,4,pout_15,4);
+CASCADE(16, pout_0,4,pout_1,4,pout_2,4,pout_3,4,pout_4,4,pout_5,4,pout_6,4,pout_7,4,pout_8,4,pout_9,4,pout_10,4,pout_11,4,pout_12,4,pout_13,4,pout_14,4,pout_15,4,state, 64); 				
+
+
+
+DECOMPOSE(state,64,16,<m_i, 4, i, 0, 16, 1>);
+for i in range(16)
+	SBOX(m_i,4,m_i,4,$Sbox);
+CASCADE(16,<m_i, 4, i, 0, 16, 1>,state,64);
+DECOMPOSE(state,64,16,<p_i, 4, i, 0, 16, 1>);
+XOR(p_1,4,p_2,4,temp1,4);
+XOR(temp1,4,p_3,4,pout_0,4);
+XOR(p_0,4,p_2,4,temp2,4);
+XOR(temp2,4,p_3,4,pout_1,4);
+XOR(p_0,4,p_1,4,temp3,4);
+XOR(temp3,4,p_3,4,pout_2,4);
+XOR(p_0,4,p_1,4,temp4,4);
+XOR(temp4,4,p_2,4,pout_3,4);
+XOR(p_5,4,p_6,4,temp5,4);
+XOR(temp5,4,p_7,4,pout_4,4);
+XOR(p_4,4,p_6,4,temp6,4);
+XOR(temp6,4,p_7,4,pout_5,4);
+XOR(p_4,4,p_5,4,temp7,4);
+XOR(temp7,4,p_7,4,pout_6,4);
+XOR(p_4,4,p_5,4,temp8,4);
+XOR(temp8,4,p_6,4,pout_7,4);
+XOR(p_9,4,p_10,4,temp9,4);
+XOR(temp9,4,p_11,4,pout_8,4);
+XOR(p_8,4,p_10,4,temp10,4);
+XOR(temp10,4,p_11,4,pout_9,4);
+XOR(p_8,4,p_9,4,temp11,4);
+XOR(temp11,4,p_11,4,pout_10,4);
+XOR(p_8,4,p_9,4,temp12,4);
+XOR(temp12,4,p_10,4,pout_11,4);
+XOR(p_13,4,p_14,4,temp13,4);
+XOR(temp13,4,p_15,4,pout_12,4);
+XOR(p_12,4,p_14,4,temp14,4);
+XOR(temp14,4,p_15,4,pout_13,4);
+XOR(p_12,4,p_13,4,temp15,4);
+XOR(temp15,4,p_15,4,pout_14,4);
+XOR(p_12,4,p_13,4,temp16,4);
+XOR(temp16,4,p_14,4,pout_15,4);
+CASCADE(16, pout_0,4,pout_1,4,pout_2,4,pout_3,4,pout_4,4,pout_5,4,pout_6,4,pout_7,4,pout_8,4,pout_9,4,pout_10,4,pout_11,4,pout_12,4,pout_13,4,pout_14,4,pout_15,4,state, 64);
+DECOMPOSE(state,64,16,<m_i, 4, i, 0, 16, 1>);
+for i in range(16)
+	SBOX(m_i,4,m_i,4,$Sbox);
+CASCADE(16,<m_i, 4, i, 0, 16, 1>,state,64);
+
+
+
+DECOMPOSE(state,64,16,<m_i, 4, i, 0, 16, 1>);
+for i in range(16)
+	SBOX(m_i,4,m_i,4,$Sbox);
+CASCADE(16,<m_i, 4, i, 0, 16, 1>,state,64);
+
+XOR(state,64,RC5,64,state,64);
+XOR(state,64,RK[7],64,state,64);
+
+DECOMPOSE(state,64,16,<p_i, 4, i, 0, 16, 1>);
+CASCADE(16,p_0,4,p_11,4,p_6,4,p_13,4,p_10,4,p_1,4,p_12,4,p_7,4,p_5,4,p_14,4,p_3,4,p_8,4,p_15,4,p_4,4,p_9,4,p_2,4,state,64);
+
+DECOMPOSE(state,64,16,<p_i, 4, i, 0, 16, 1>);
+XOR(p_1,4,p_2,4,temp1,4);
+XOR(temp1,4,p_3,4,pout_0,4);
+XOR(p_0,4,p_2,4,temp2,4);
+XOR(temp2,4,p_3,4,pout_1,4);
+XOR(p_0,4,p_1,4,temp3,4);
+XOR(temp3,4,p_3,4,pout_2,4);
+XOR(p_0,4,p_1,4,temp4,4);
+XOR(temp4,4,p_2,4,pout_3,4);
+XOR(p_5,4,p_6,4,temp5,4);
+XOR(temp5,4,p_7,4,pout_4,4);
+XOR(p_4,4,p_6,4,temp6,4);
+XOR(temp6,4,p_7,4,pout_5,4);
+XOR(p_4,4,p_5,4,temp7,4);
+XOR(temp7,4,p_7,4,pout_6,4);
+XOR(p_4,4,p_5,4,temp8,4);
+XOR(temp8,4,p_6,4,pout_7,4);
+XOR(p_9,4,p_10,4,temp9,4);
+XOR(temp9,4,p_11,4,pout_8,4);
+XOR(p_8,4,p_10,4,temp10,4);
+XOR(temp10,4,p_11,4,pout_9,4);
+XOR(p_8,4,p_9,4,temp11,4);
+XOR(temp11,4,p_11,4,pout_10,4);
+XOR(p_8,4,p_9,4,temp12,4);
+XOR(temp12,4,p_10,4,pout_11,4);
+XOR(p_13,4,p_14,4,temp13,4);
+XOR(temp13,4,p_15,4,pout_12,4);
+XOR(p_12,4,p_14,4,temp14,4);
+XOR(temp14,4,p_15,4,pout_13,4);
+XOR(p_12,4,p_13,4,temp15,4);
+XOR(temp15,4,p_15,4,pout_14,4);
+XOR(p_12,4,p_13,4,temp16,4);
+XOR(temp16,4,p_14,4,pout_15,4);
+CASCADE(16, pout_0,4,pout_1,4,pout_2,4,pout_3,4,pout_4,4,pout_5,4,pout_6,4,pout_7,4,pout_8,4,pout_9,4,pout_10,4,pout_11,4,pout_12,4,pout_13,4,pout_14,4,pout_15,4,state, 64); 				
+
+
+
+DECOMPOSE(state,64,16,<m_i, 4, i, 0, 16, 1>);
+for i in range(16)
+	SBOX(m_i,4,m_i,4,$Sbox);
+CASCADE(16,<m_i, 4, i, 0, 16, 1>,state,64);
+
+XOR(state,64,RC4,64,state,64);
+XOR(state,64,RK[8],64,state,64);
+
+DECOMPOSE(state,64,16,<p_i, 4, i, 0, 16, 1>);
+CASCADE(16,p_0,4,p_11,4,p_6,4,p_13,4,p_10,4,p_1,4,p_12,4,p_7,4,p_5,4,p_14,4,p_3,4,p_8,4,p_15,4,p_4,4,p_9,4,p_2,4,state,64);
+
+DECOMPOSE(state,64,16,<p_i, 4, i, 0, 16, 1>);
+XOR(p_1,4,p_2,4,temp1,4);
+XOR(temp1,4,p_3,4,pout_0,4);
+XOR(p_0,4,p_2,4,temp2,4);
+XOR(temp2,4,p_3,4,pout_1,4);
+XOR(p_0,4,p_1,4,temp3,4);
+XOR(temp3,4,p_3,4,pout_2,4);
+XOR(p_0,4,p_1,4,temp4,4);
+XOR(temp4,4,p_2,4,pout_3,4);
+XOR(p_5,4,p_6,4,temp5,4);
+XOR(temp5,4,p_7,4,pout_4,4);
+XOR(p_4,4,p_6,4,temp6,4);
+XOR(temp6,4,p_7,4,pout_5,4);
+XOR(p_4,4,p_5,4,temp7,4);
+XOR(temp7,4,p_7,4,pout_6,4);
+XOR(p_4,4,p_5,4,temp8,4);
+XOR(temp8,4,p_6,4,pout_7,4);
+XOR(p_9,4,p_10,4,temp9,4);
+XOR(temp9,4,p_11,4,pout_8,4);
+XOR(p_8,4,p_10,4,temp10,4);
+XOR(temp10,4,p_11,4,pout_9,4);
+XOR(p_8,4,p_9,4,temp11,4);
+XOR(temp11,4,p_11,4,pout_10,4);
+XOR(p_8,4,p_9,4,temp12,4);
+XOR(temp12,4,p_10,4,pout_11,4);
+XOR(p_13,4,p_14,4,temp13,4);
+XOR(temp13,4,p_15,4,pout_12,4);
+XOR(p_12,4,p_14,4,temp14,4);
+XOR(temp14,4,p_15,4,pout_13,4);
+XOR(p_12,4,p_13,4,temp15,4);
+XOR(temp15,4,p_15,4,pout_14,4);
+XOR(p_12,4,p_13,4,temp16,4);
+XOR(temp16,4,p_14,4,pout_15,4);
+CASCADE(16, pout_0,4,pout_1,4,pout_2,4,pout_3,4,pout_4,4,pout_5,4,pout_6,4,pout_7,4,pout_8,4,pout_9,4,pout_10,4,pout_11,4,pout_12,4,pout_13,4,pout_14,4,pout_15,4,state, 64); 				
+
+
+DECOMPOSE(state,64,16,<m_i, 4, i, 0, 16, 1>);
+for i in range(16)
+	SBOX(m_i,4,m_i,4,$Sbox);
+CASCADE(16,<m_i, 4, i, 0, 16, 1>,state,64);
+
+XOR(state,64,RC3,64,state,64);
+XOR(state,64,RK[9],64,state,64);
+	
+DECOMPOSE(state,64,16,<p_i, 4, i, 0, 16, 1>);
+CASCADE(16,p_0,4,p_11,4,p_6,4,p_13,4,p_10,4,p_1,4,p_12,4,p_7,4,p_5,4,p_14,4,p_3,4,p_8,4,p_15,4,p_4,4,p_9,4,p_2,4,state,64);
+
+DECOMPOSE(state,64,16,<p_i, 4, i, 0, 16, 1>);
+XOR(p_1,4,p_2,4,temp1,4);
+XOR(temp1,4,p_3,4,pout_0,4);
+XOR(p_0,4,p_2,4,temp2,4);
+XOR(temp2,4,p_3,4,pout_1,4);
+XOR(p_0,4,p_1,4,temp3,4);
+XOR(temp3,4,p_3,4,pout_2,4);
+XOR(p_0,4,p_1,4,temp4,4);
+XOR(temp4,4,p_2,4,pout_3,4);
+XOR(p_5,4,p_6,4,temp5,4);
+XOR(temp5,4,p_7,4,pout_4,4);
+XOR(p_4,4,p_6,4,temp6,4);
+XOR(temp6,4,p_7,4,pout_5,4);
+XOR(p_4,4,p_5,4,temp7,4);
+XOR(temp7,4,p_7,4,pout_6,4);
+XOR(p_4,4,p_5,4,temp8,4);
+XOR(temp8,4,p_6,4,pout_7,4);
+XOR(p_9,4,p_10,4,temp9,4);
+XOR(temp9,4,p_11,4,pout_8,4);
+XOR(p_8,4,p_10,4,temp10,4);
+XOR(temp10,4,p_11,4,pout_9,4);
+XOR(p_8,4,p_9,4,temp11,4);
+XOR(temp11,4,p_11,4,pout_10,4);
+XOR(p_8,4,p_9,4,temp12,4);
+XOR(temp12,4,p_10,4,pout_11,4);
+XOR(p_13,4,p_14,4,temp13,4);
+XOR(temp13,4,p_15,4,pout_12,4);
+XOR(p_12,4,p_14,4,temp14,4);
+XOR(temp14,4,p_15,4,pout_13,4);
+XOR(p_12,4,p_13,4,temp15,4);
+XOR(temp15,4,p_15,4,pout_14,4);
+XOR(p_12,4,p_13,4,temp16,4);
+XOR(temp16,4,p_14,4,pout_15,4);
+CASCADE(16, pout_0,4,pout_1,4,pout_2,4,pout_3,4,pout_4,4,pout_5,4,pout_6,4,pout_7,4,pout_8,4,pout_9,4,pout_10,4,pout_11,4,pout_12,4,pout_13,4,pout_14,4,pout_15,4,state, 64); 				
+
+
+
+DECOMPOSE(state,64,16,<m_i, 4, i, 0, 16, 1>);
+for i in range(16)
+	SBOX(m_i,4,m_i,4,$Sbox);
+CASCADE(16,<m_i, 4, i, 0, 16, 1>,state,64);
+
+XOR(state,64,RC2,64,state,64);
+XOR(state,64,RK[10],64,state,64);
+
+DECOMPOSE(state,64,16,<p_i, 4, i, 0, 16, 1>);
+CASCADE(16,p_0,4,p_11,4,p_6,4,p_13,4,p_10,4,p_1,4,p_12,4,p_7,4,p_5,4,p_14,4,p_3,4,p_8,4,p_15,4,p_4,4,p_9,4,p_2,4,state,64);
+
+DECOMPOSE(state,64,16,<p_i, 4, i, 0, 16, 1>);
+XOR(p_1,4,p_2,4,temp1,4);
+XOR(temp1,4,p_3,4,pout_0,4);
+XOR(p_0,4,p_2,4,temp2,4);
+XOR(temp2,4,p_3,4,pout_1,4);
+XOR(p_0,4,p_1,4,temp3,4);
+XOR(temp3,4,p_3,4,pout_2,4);
+XOR(p_0,4,p_1,4,temp4,4);
+XOR(temp4,4,p_2,4,pout_3,4);
+XOR(p_5,4,p_6,4,temp5,4);
+XOR(temp5,4,p_7,4,pout_4,4);
+XOR(p_4,4,p_6,4,temp6,4);
+XOR(temp6,4,p_7,4,pout_5,4);
+XOR(p_4,4,p_5,4,temp7,4);
+XOR(temp7,4,p_7,4,pout_6,4);
+XOR(p_4,4,p_5,4,temp8,4);
+XOR(temp8,4,p_6,4,pout_7,4);
+XOR(p_9,4,p_10,4,temp9,4);
+XOR(temp9,4,p_11,4,pout_8,4);
+XOR(p_8,4,p_10,4,temp10,4);
+XOR(temp10,4,p_11,4,pout_9,4);
+XOR(p_8,4,p_9,4,temp11,4);
+XOR(temp11,4,p_11,4,pout_10,4);
+XOR(p_8,4,p_9,4,temp12,4);
+XOR(temp12,4,p_10,4,pout_11,4);
+XOR(p_13,4,p_14,4,temp13,4);
+XOR(temp13,4,p_15,4,pout_12,4);
+XOR(p_12,4,p_14,4,temp14,4);
+XOR(temp14,4,p_15,4,pout_13,4);
+XOR(p_12,4,p_13,4,temp15,4);
+XOR(temp15,4,p_15,4,pout_14,4);
+XOR(p_12,4,p_13,4,temp16,4);
+XOR(temp16,4,p_14,4,pout_15,4);
+CASCADE(16, pout_0,4,pout_1,4,pout_2,4,pout_3,4,pout_4,4,pout_5,4,pout_6,4,pout_7,4,pout_8,4,pout_9,4,pout_10,4,pout_11,4,pout_12,4,pout_13,4,pout_14,4,pout_15,4,state, 64); 				
+
+
+
+DECOMPOSE(state,64,16,<m_i, 4, i, 0, 16, 1>);
+for i in range(16)
+	SBOX(m_i,4,m_i,4,$Sbox);
+CASCADE(16,<m_i, 4, i, 0, 16, 1>,state,64);
+
+XOR(state,64,RC1,64,state,64);
+XOR(state,64,RK[11],64,state,64);
+
+DECOMPOSE(state,64,16,<p_i, 4, i, 0, 16, 1>);
+CASCADE(16,p_0,4,p_11,4,p_6,4,p_13,4,p_10,4,p_1,4,p_12,4,p_7,4,p_5,4,p_14,4,p_3,4,p_8,4,p_15,4,p_4,4,p_9,4,p_2,4,state,64);
+
+DECOMPOSE(state,64,16,<p_i, 4, i, 0, 16, 1>);
+XOR(p_1,4,p_2,4,temp1,4);
+XOR(temp1,4,p_3,4,pout_0,4);
+XOR(p_0,4,p_2,4,temp2,4);
+XOR(temp2,4,p_3,4,pout_1,4);
+XOR(p_0,4,p_1,4,temp3,4);
+XOR(temp3,4,p_3,4,pout_2,4);
+XOR(p_0,4,p_1,4,temp4,4);
+XOR(temp4,4,p_2,4,pout_3,4);
+XOR(p_5,4,p_6,4,temp5,4);
+XOR(temp5,4,p_7,4,pout_4,4);
+XOR(p_4,4,p_6,4,temp6,4);
+XOR(temp6,4,p_7,4,pout_5,4);
+XOR(p_4,4,p_5,4,temp7,4);
+XOR(temp7,4,p_7,4,pout_6,4);
+XOR(p_4,4,p_5,4,temp8,4);
+XOR(temp8,4,p_6,4,pout_7,4);
+XOR(p_9,4,p_10,4,temp9,4);
+XOR(temp9,4,p_11,4,pout_8,4);
+XOR(p_8,4,p_10,4,temp10,4);
+XOR(temp10,4,p_11,4,pout_9,4);
+XOR(p_8,4,p_9,4,temp11,4);
+XOR(temp11,4,p_11,4,pout_10,4);
+XOR(p_8,4,p_9,4,temp12,4);
+XOR(temp12,4,p_10,4,pout_11,4);
+XOR(p_13,4,p_14,4,temp13,4);
+XOR(temp13,4,p_15,4,pout_12,4);
+XOR(p_12,4,p_14,4,temp14,4);
+XOR(temp14,4,p_15,4,pout_13,4);
+XOR(p_12,4,p_13,4,temp15,4);
+XOR(temp15,4,p_15,4,pout_14,4);
+XOR(p_12,4,p_13,4,temp16,4);
+XOR(temp16,4,p_14,4,pout_15,4);
+CASCADE(16, pout_0,4,pout_1,4,pout_2,4,pout_3,4,pout_4,4,pout_5,4,pout_6,4,pout_7,4,pout_8,4,pout_9,4,pout_10,4,pout_11,4,pout_12,4,pout_13,4,pout_14,4,pout_15,4,state, 64); 				
+
+
+XOR(state,64,RK[12],64,state,64);
+XOR(state,64,RK[13],64,state,64);
+
+DECOMPOSE(state,64,2,state1,32,state2,32);
+CASCADE(2,state1,32,state2,32,CIPHER,64);
+ENDSWENC
+
+
+
+SWDEC:
+INPUT(2,CIPHER,64,1,RK,64,14);
+OUTPUT(1,PLAIN,64,1);
+DECOMPOSE(CIPHER,64,2,state1,32,state2,32);
+CASCADE(2,state1,32,state2,32,state,64);
+XOR(state,64,RK[13],64,state,64);
+XOR(state,64,RK[12],64,state,64);
+
+
+
+DECOMPOSE(state,64,16,<m_i, 4, i, 0, 16, 1>);
+for i in range(16)
+	SBOX(m_i,4,m_i,4,$Sbox);
+CASCADE(16,<m_i, 4, i, 0, 16, 1>,state,64);
+
+XOR(state,64,RC1,64,state,64);
+XOR(state,64,RK[11],64,state,64);
+DECOMPOSE(state,64,16,<p_i, 4, i, 0, 16, 1>);
+CASCADE(16,p_0,4,p_11,4,p_6,4,p_13,4,p_10,4,p_1,4,p_12,4,p_7,4,p_5,4,p_14,4,p_3,4,p_8,4,p_15,4,p_4,4,p_9,4,p_2,4,state,64);
+
+DECOMPOSE(state,64,16,<p_i, 4, i, 0, 16, 1>);
+XOR(p_1,4,p_2,4,temp1,4);
+XOR(temp1,4,p_3,4,pout_0,4);
+XOR(p_0,4,p_2,4,temp2,4);
+XOR(temp2,4,p_3,4,pout_1,4);
+XOR(p_0,4,p_1,4,temp3,4);
+XOR(temp3,4,p_3,4,pout_2,4);
+XOR(p_0,4,p_1,4,temp4,4);
+XOR(temp4,4,p_2,4,pout_3,4);
+XOR(p_5,4,p_6,4,temp5,4);
+XOR(temp5,4,p_7,4,pout_4,4);
+XOR(p_4,4,p_6,4,temp6,4);
+XOR(temp6,4,p_7,4,pout_5,4);
+XOR(p_4,4,p_5,4,temp7,4);
+XOR(temp7,4,p_7,4,pout_6,4);
+XOR(p_4,4,p_5,4,temp8,4);
+XOR(temp8,4,p_6,4,pout_7,4);
+XOR(p_9,4,p_10,4,temp9,4);
+XOR(temp9,4,p_11,4,pout_8,4);
+XOR(p_8,4,p_10,4,temp10,4);
+XOR(temp10,4,p_11,4,pout_9,4);
+XOR(p_8,4,p_9,4,temp11,4);
+XOR(temp11,4,p_11,4,pout_10,4);
+XOR(p_8,4,p_9,4,temp12,4);
+XOR(temp12,4,p_10,4,pout_11,4);
+XOR(p_13,4,p_14,4,temp13,4);
+XOR(temp13,4,p_15,4,pout_12,4);
+XOR(p_12,4,p_14,4,temp14,4);
+XOR(temp14,4,p_15,4,pout_13,4);
+XOR(p_12,4,p_13,4,temp15,4);
+XOR(temp15,4,p_15,4,pout_14,4);
+XOR(p_12,4,p_13,4,temp16,4);
+XOR(temp16,4,p_14,4,pout_15,4);
+CASCADE(16, pout_0,4,pout_1,4,pout_2,4,pout_3,4,pout_4,4,pout_5,4,pout_6,4,pout_7,4,pout_8,4,pout_9,4,pout_10,4,pout_11,4,pout_12,4,pout_13,4,pout_14,4,pout_15,4,state, 64); 				
+
+
+DECOMPOSE(state,64,16,<m_i, 4, i, 0, 16, 1>);
+for i in range(16)
+	SBOX(m_i,4,m_i,4,$Sbox);
+CASCADE(16,<m_i, 4, i, 0, 16, 1>,state,64);
+
+XOR(state,64,RC2,64,state,64);
+XOR(state,64,RK[10],64,state,64);
+
+DECOMPOSE(state,64,16,<p_i, 4, i, 0, 16, 1>);
+CASCADE(16,p_0,4,p_11,4,p_6,4,p_13,4,p_10,4,p_1,4,p_12,4,p_7,4,p_5,4,p_14,4,p_3,4,p_8,4,p_15,4,p_4,4,p_9,4,p_2,4,state,64);
+
+DECOMPOSE(state,64,16,<p_i, 4, i, 0, 16, 1>);
+XOR(p_1,4,p_2,4,temp1,4);
+XOR(temp1,4,p_3,4,pout_0,4);
+XOR(p_0,4,p_2,4,temp2,4);
+XOR(temp2,4,p_3,4,pout_1,4);
+XOR(p_0,4,p_1,4,temp3,4);
+XOR(temp3,4,p_3,4,pout_2,4);
+XOR(p_0,4,p_1,4,temp4,4);
+XOR(temp4,4,p_2,4,pout_3,4);
+XOR(p_5,4,p_6,4,temp5,4);
+XOR(temp5,4,p_7,4,pout_4,4);
+XOR(p_4,4,p_6,4,temp6,4);
+XOR(temp6,4,p_7,4,pout_5,4);
+XOR(p_4,4,p_5,4,temp7,4);
+XOR(temp7,4,p_7,4,pout_6,4);
+XOR(p_4,4,p_5,4,temp8,4);
+XOR(temp8,4,p_6,4,pout_7,4);
+XOR(p_9,4,p_10,4,temp9,4);
+XOR(temp9,4,p_11,4,pout_8,4);
+XOR(p_8,4,p_10,4,temp10,4);
+XOR(temp10,4,p_11,4,pout_9,4);
+XOR(p_8,4,p_9,4,temp11,4);
+XOR(temp11,4,p_11,4,pout_10,4);
+XOR(p_8,4,p_9,4,temp12,4);
+XOR(temp12,4,p_10,4,pout_11,4);
+XOR(p_13,4,p_14,4,temp13,4);
+XOR(temp13,4,p_15,4,pout_12,4);
+XOR(p_12,4,p_14,4,temp14,4);
+XOR(temp14,4,p_15,4,pout_13,4);
+XOR(p_12,4,p_13,4,temp15,4);
+XOR(temp15,4,p_15,4,pout_14,4);
+XOR(p_12,4,p_13,4,temp16,4);
+XOR(temp16,4,p_14,4,pout_15,4);
+CASCADE(16, pout_0,4,pout_1,4,pout_2,4,pout_3,4,pout_4,4,pout_5,4,pout_6,4,pout_7,4,pout_8,4,pout_9,4,pout_10,4,pout_11,4,pout_12,4,pout_13,4,pout_14,4,pout_15,4,state, 64); 				
+
+DECOMPOSE(state,64,16,<m_i, 4, i, 0, 16, 1>);
+for i in range(16)
+	SBOX(m_i,4,m_i,4,$Sbox);
+CASCADE(16,<m_i, 4, i, 0, 16, 1>,state,64);
+
+XOR(state,64,RC3,64,state,64);
+
+XOR(state,64,RK[9],64,state,64);
+
+DECOMPOSE(state,64,16,<p_i, 4, i, 0, 16, 1>);
+CASCADE(16,p_0,4,p_11,4,p_6,4,p_13,4,p_10,4,p_1,4,p_12,4,p_7,4,p_5,4,p_14,4,p_3,4,p_8,4,p_15,4,p_4,4,p_9,4,p_2,4,state,64);
+
+DECOMPOSE(state,64,16,<p_i, 4, i, 0, 16, 1>);
+XOR(p_1,4,p_2,4,temp1,4);
+XOR(temp1,4,p_3,4,pout_0,4);
+XOR(p_0,4,p_2,4,temp2,4);
+XOR(temp2,4,p_3,4,pout_1,4);
+XOR(p_0,4,p_1,4,temp3,4);
+XOR(temp3,4,p_3,4,pout_2,4);
+XOR(p_0,4,p_1,4,temp4,4);
+XOR(temp4,4,p_2,4,pout_3,4);
+XOR(p_5,4,p_6,4,temp5,4);
+XOR(temp5,4,p_7,4,pout_4,4);
+XOR(p_4,4,p_6,4,temp6,4);
+XOR(temp6,4,p_7,4,pout_5,4);
+XOR(p_4,4,p_5,4,temp7,4);
+XOR(temp7,4,p_7,4,pout_6,4);
+XOR(p_4,4,p_5,4,temp8,4);
+XOR(temp8,4,p_6,4,pout_7,4);
+XOR(p_9,4,p_10,4,temp9,4);
+XOR(temp9,4,p_11,4,pout_8,4);
+XOR(p_8,4,p_10,4,temp10,4);
+XOR(temp10,4,p_11,4,pout_9,4);
+XOR(p_8,4,p_9,4,temp11,4);
+XOR(temp11,4,p_11,4,pout_10,4);
+XOR(p_8,4,p_9,4,temp12,4);
+XOR(temp12,4,p_10,4,pout_11,4);
+XOR(p_13,4,p_14,4,temp13,4);
+XOR(temp13,4,p_15,4,pout_12,4);
+XOR(p_12,4,p_14,4,temp14,4);
+XOR(temp14,4,p_15,4,pout_13,4);
+XOR(p_12,4,p_13,4,temp15,4);
+XOR(temp15,4,p_15,4,pout_14,4);
+XOR(p_12,4,p_13,4,temp16,4);
+XOR(temp16,4,p_14,4,pout_15,4);
+CASCADE(16, pout_0,4,pout_1,4,pout_2,4,pout_3,4,pout_4,4,pout_5,4,pout_6,4,pout_7,4,pout_8,4,pout_9,4,pout_10,4,pout_11,4,pout_12,4,pout_13,4,pout_14,4,pout_15,4,state, 64); 				
+
+
+
+DECOMPOSE(state,64,16,<m_i, 4, i, 0, 16, 1>);
+for i in range(16)
+	SBOX(m_i,4,m_i,4,$Sbox);
+CASCADE(16,<m_i, 4, i, 0, 16, 1>,state,64);
+
+XOR(state,64,RC4,64,state,64);
+
+XOR(state,64,RK[8],64,state,64);
+
+DECOMPOSE(state,64,16,<p_i, 4, i, 0, 16, 1>);
+CASCADE(16,p_0,4,p_11,4,p_6,4,p_13,4,p_10,4,p_1,4,p_12,4,p_7,4,p_5,4,p_14,4,p_3,4,p_8,4,p_15,4,p_4,4,p_9,4,p_2,4,state,64);
+
+DECOMPOSE(state,64,16,<p_i, 4, i, 0, 16, 1>);
+XOR(p_1,4,p_2,4,temp1,4);
+XOR(temp1,4,p_3,4,pout_0,4);
+XOR(p_0,4,p_2,4,temp2,4);
+XOR(temp2,4,p_3,4,pout_1,4);
+XOR(p_0,4,p_1,4,temp3,4);
+XOR(temp3,4,p_3,4,pout_2,4);
+XOR(p_0,4,p_1,4,temp4,4);
+XOR(temp4,4,p_2,4,pout_3,4);
+XOR(p_5,4,p_6,4,temp5,4);
+XOR(temp5,4,p_7,4,pout_4,4);
+XOR(p_4,4,p_6,4,temp6,4);
+XOR(temp6,4,p_7,4,pout_5,4);
+XOR(p_4,4,p_5,4,temp7,4);
+XOR(temp7,4,p_7,4,pout_6,4);
+XOR(p_4,4,p_5,4,temp8,4);
+XOR(temp8,4,p_6,4,pout_7,4);
+XOR(p_9,4,p_10,4,temp9,4);
+XOR(temp9,4,p_11,4,pout_8,4);
+XOR(p_8,4,p_10,4,temp10,4);
+XOR(temp10,4,p_11,4,pout_9,4);
+XOR(p_8,4,p_9,4,temp11,4);
+XOR(temp11,4,p_11,4,pout_10,4);
+XOR(p_8,4,p_9,4,temp12,4);
+XOR(temp12,4,p_10,4,pout_11,4);
+XOR(p_13,4,p_14,4,temp13,4);
+XOR(temp13,4,p_15,4,pout_12,4);
+XOR(p_12,4,p_14,4,temp14,4);
+XOR(temp14,4,p_15,4,pout_13,4);
+XOR(p_12,4,p_13,4,temp15,4);
+XOR(temp15,4,p_15,4,pout_14,4);
+XOR(p_12,4,p_13,4,temp16,4);
+XOR(temp16,4,p_14,4,pout_15,4);
+CASCADE(16, pout_0,4,pout_1,4,pout_2,4,pout_3,4,pout_4,4,pout_5,4,pout_6,4,pout_7,4,pout_8,4,pout_9,4,pout_10,4,pout_11,4,pout_12,4,pout_13,4,pout_14,4,pout_15,4,state, 64); 				
+
+
+
+DECOMPOSE(state,64,16,<m_i, 4, i, 0, 16, 1>);
+for i in range(16)
+	SBOX(m_i,4,m_i,4,$Sbox);
+CASCADE(16,<m_i, 4, i, 0, 16, 1>,state,64);
+
+XOR(state,64,RC5,64,state,64);
+XOR(state,64,RK[7],64,state,64);
+
+DECOMPOSE(state,64,16,<p_i, 4, i, 0, 16, 1>);
+CASCADE(16,p_0,4,p_11,4,p_6,4,p_13,4,p_10,4,p_1,4,p_12,4,p_7,4,p_5,4,p_14,4,p_3,4,p_8,4,p_15,4,p_4,4,p_9,4,p_2,4,state,64);
+
+DECOMPOSE(state,64,16,<p_i, 4, i, 0, 16, 1>);
+XOR(p_1,4,p_2,4,temp1,4);
+XOR(temp1,4,p_3,4,pout_0,4);
+XOR(p_0,4,p_2,4,temp2,4);
+XOR(temp2,4,p_3,4,pout_1,4);
+XOR(p_0,4,p_1,4,temp3,4);
+XOR(temp3,4,p_3,4,pout_2,4);
+XOR(p_0,4,p_1,4,temp4,4);
+XOR(temp4,4,p_2,4,pout_3,4);
+XOR(p_5,4,p_6,4,temp5,4);
+XOR(temp5,4,p_7,4,pout_4,4);
+XOR(p_4,4,p_6,4,temp6,4);
+XOR(temp6,4,p_7,4,pout_5,4);
+XOR(p_4,4,p_5,4,temp7,4);
+XOR(temp7,4,p_7,4,pout_6,4);
+XOR(p_4,4,p_5,4,temp8,4);
+XOR(temp8,4,p_6,4,pout_7,4);
+XOR(p_9,4,p_10,4,temp9,4);
+XOR(temp9,4,p_11,4,pout_8,4);
+XOR(p_8,4,p_10,4,temp10,4);
+XOR(temp10,4,p_11,4,pout_9,4);
+XOR(p_8,4,p_9,4,temp11,4);
+XOR(temp11,4,p_11,4,pout_10,4);
+XOR(p_8,4,p_9,4,temp12,4);
+XOR(temp12,4,p_10,4,pout_11,4);
+XOR(p_13,4,p_14,4,temp13,4);
+XOR(temp13,4,p_15,4,pout_12,4);
+XOR(p_12,4,p_14,4,temp14,4);
+XOR(temp14,4,p_15,4,pout_13,4);
+XOR(p_12,4,p_13,4,temp15,4);
+XOR(temp15,4,p_15,4,pout_14,4);
+XOR(p_12,4,p_13,4,temp16,4);
+XOR(temp16,4,p_14,4,pout_15,4);
+CASCADE(16, pout_0,4,pout_1,4,pout_2,4,pout_3,4,pout_4,4,pout_5,4,pout_6,4,pout_7,4,pout_8,4,pout_9,4,pout_10,4,pout_11,4,pout_12,4,pout_13,4,pout_14,4,pout_15,4,state, 64); 				
+
+
+
+DECOMPOSE(state,64,16,<m_i, 4, i, 0, 16, 1>);
+for i in range(16)
+	SBOX(m_i,4,m_i,4,$Sbox);
+CASCADE(16,<m_i, 4, i, 0, 16, 1>,state,64);
+DECOMPOSE(state,64,16,<p_i, 4, i, 0, 16, 1>);
+XOR(p_1,4,p_2,4,temp1,4);
+XOR(temp1,4,p_3,4,pout_0,4);
+XOR(p_0,4,p_2,4,temp2,4);
+XOR(temp2,4,p_3,4,pout_1,4);
+XOR(p_0,4,p_1,4,temp3,4);
+XOR(temp3,4,p_3,4,pout_2,4);
+XOR(p_0,4,p_1,4,temp4,4);
+XOR(temp4,4,p_2,4,pout_3,4);
+XOR(p_5,4,p_6,4,temp5,4);
+XOR(temp5,4,p_7,4,pout_4,4);
+XOR(p_4,4,p_6,4,temp6,4);
+XOR(temp6,4,p_7,4,pout_5,4);
+XOR(p_4,4,p_5,4,temp7,4);
+XOR(temp7,4,p_7,4,pout_6,4);
+XOR(p_4,4,p_5,4,temp8,4);
+XOR(temp8,4,p_6,4,pout_7,4);
+XOR(p_9,4,p_10,4,temp9,4);
+XOR(temp9,4,p_11,4,pout_8,4);
+XOR(p_8,4,p_10,4,temp10,4);
+XOR(temp10,4,p_11,4,pout_9,4);
+XOR(p_8,4,p_9,4,temp11,4);
+XOR(temp11,4,p_11,4,pout_10,4);
+XOR(p_8,4,p_9,4,temp12,4);
+XOR(temp12,4,p_10,4,pout_11,4);
+XOR(p_13,4,p_14,4,temp13,4);
+XOR(temp13,4,p_15,4,pout_12,4);
+XOR(p_12,4,p_14,4,temp14,4);
+XOR(temp14,4,p_15,4,pout_13,4);
+XOR(p_12,4,p_13,4,temp15,4);
+XOR(temp15,4,p_15,4,pout_14,4);
+XOR(p_12,4,p_13,4,temp16,4);
+XOR(temp16,4,p_14,4,pout_15,4);
+CASCADE(16, pout_0,4,pout_1,4,pout_2,4,pout_3,4,pout_4,4,pout_5,4,pout_6,4,pout_7,4,pout_8,4,pout_9,4,pout_10,4,pout_11,4,pout_12,4,pout_13,4,pout_14,4,pout_15,4,state, 64);
+DECOMPOSE(state,64,16,<m_i, 4, i, 0, 16, 1>);
+for i in range(16)
+	SBOX(m_i,4,m_i,4,$Sbox);
+CASCADE(16,<m_i, 4, i, 0, 16, 1>,state,64);
+
+
+
+DECOMPOSE(state,64,16,<m_i, 4, i, 0, 16, 1>);
+for i in range(16)
+	SBOX(m_i,4,m_i,4,$Sbox);
+CASCADE(16,<m_i, 4, i, 0, 16, 1>,state,64);
+
+XOR(state,64,RC5,64,state,64);
+XOR(state,64,RK[6],64,state,64);
+
+DECOMPOSE(state,64,16,<p_i, 4, i, 0, 16, 1>);
+CASCADE(16,p_0,4,p_11,4,p_6,4,p_13,4,p_10,4,p_1,4,p_12,4,p_7,4,p_5,4,p_14,4,p_3,4,p_8,4,p_15,4,p_4,4,p_9,4,p_2,4,state,64);
+
+DECOMPOSE(state,64,16,<p_i, 4, i, 0, 16, 1>);
+XOR(p_1,4,p_2,4,temp1,4);
+XOR(temp1,4,p_3,4,pout_0,4);
+XOR(p_0,4,p_2,4,temp2,4);
+XOR(temp2,4,p_3,4,pout_1,4);
+XOR(p_0,4,p_1,4,temp3,4);
+XOR(temp3,4,p_3,4,pout_2,4);
+XOR(p_0,4,p_1,4,temp4,4);
+XOR(temp4,4,p_2,4,pout_3,4);
+XOR(p_5,4,p_6,4,temp5,4);
+XOR(temp5,4,p_7,4,pout_4,4);
+XOR(p_4,4,p_6,4,temp6,4);
+XOR(temp6,4,p_7,4,pout_5,4);
+XOR(p_4,4,p_5,4,temp7,4);
+XOR(temp7,4,p_7,4,pout_6,4);
+XOR(p_4,4,p_5,4,temp8,4);
+XOR(temp8,4,p_6,4,pout_7,4);
+XOR(p_9,4,p_10,4,temp9,4);
+XOR(temp9,4,p_11,4,pout_8,4);
+XOR(p_8,4,p_10,4,temp10,4);
+XOR(temp10,4,p_11,4,pout_9,4);
+XOR(p_8,4,p_9,4,temp11,4);
+XOR(temp11,4,p_11,4,pout_10,4);
+XOR(p_8,4,p_9,4,temp12,4);
+XOR(temp12,4,p_10,4,pout_11,4);
+XOR(p_13,4,p_14,4,temp13,4);
+XOR(temp13,4,p_15,4,pout_12,4);
+XOR(p_12,4,p_14,4,temp14,4);
+XOR(temp14,4,p_15,4,pout_13,4);
+XOR(p_12,4,p_13,4,temp15,4);
+XOR(temp15,4,p_15,4,pout_14,4);
+XOR(p_12,4,p_13,4,temp16,4);
+XOR(temp16,4,p_14,4,pout_15,4);
+CASCADE(16, pout_0,4,pout_1,4,pout_2,4,pout_3,4,pout_4,4,pout_5,4,pout_6,4,pout_7,4,pout_8,4,pout_9,4,pout_10,4,pout_11,4,pout_12,4,pout_13,4,pout_14,4,pout_15,4,state, 64); 				
+
+
+
+DECOMPOSE(state,64,16,<m_i, 4, i, 0, 16, 1>);
+for i in range(16)
+	SBOX(m_i,4,m_i,4,$Sbox);
+CASCADE(16,<m_i, 4, i, 0, 16, 1>,state,64);
+
+XOR(state,64,RC4,64,state,64);
+XOR(state,64,RK[5],64,state,64);
+
+DECOMPOSE(state,64,16,<p_i, 4, i, 0, 16, 1>);
+CASCADE(16,p_0,4,p_11,4,p_6,4,p_13,4,p_10,4,p_1,4,p_12,4,p_7,4,p_5,4,p_14,4,p_3,4,p_8,4,p_15,4,p_4,4,p_9,4,p_2,4,state,64);
+
+DECOMPOSE(state,64,16,<p_i, 4, i, 0, 16, 1>);
+XOR(p_1,4,p_2,4,temp1,4);
+XOR(temp1,4,p_3,4,pout_0,4);
+XOR(p_0,4,p_2,4,temp2,4);
+XOR(temp2,4,p_3,4,pout_1,4);
+XOR(p_0,4,p_1,4,temp3,4);
+XOR(temp3,4,p_3,4,pout_2,4);
+XOR(p_0,4,p_1,4,temp4,4);
+XOR(temp4,4,p_2,4,pout_3,4);
+XOR(p_5,4,p_6,4,temp5,4);
+XOR(temp5,4,p_7,4,pout_4,4);
+XOR(p_4,4,p_6,4,temp6,4);
+XOR(temp6,4,p_7,4,pout_5,4);
+XOR(p_4,4,p_5,4,temp7,4);
+XOR(temp7,4,p_7,4,pout_6,4);
+XOR(p_4,4,p_5,4,temp8,4);
+XOR(temp8,4,p_6,4,pout_7,4);
+XOR(p_9,4,p_10,4,temp9,4);
+XOR(temp9,4,p_11,4,pout_8,4);
+XOR(p_8,4,p_10,4,temp10,4);
+XOR(temp10,4,p_11,4,pout_9,4);
+XOR(p_8,4,p_9,4,temp11,4);
+XOR(temp11,4,p_11,4,pout_10,4);
+XOR(p_8,4,p_9,4,temp12,4);
+XOR(temp12,4,p_10,4,pout_11,4);
+XOR(p_13,4,p_14,4,temp13,4);
+XOR(temp13,4,p_15,4,pout_12,4);
+XOR(p_12,4,p_14,4,temp14,4);
+XOR(temp14,4,p_15,4,pout_13,4);
+XOR(p_12,4,p_13,4,temp15,4);
+XOR(temp15,4,p_15,4,pout_14,4);
+XOR(p_12,4,p_13,4,temp16,4);
+XOR(temp16,4,p_14,4,pout_15,4);
+CASCADE(16, pout_0,4,pout_1,4,pout_2,4,pout_3,4,pout_4,4,pout_5,4,pout_6,4,pout_7,4,pout_8,4,pout_9,4,pout_10,4,pout_11,4,pout_12,4,pout_13,4,pout_14,4,pout_15,4,state, 64); 				
+
+
+DECOMPOSE(state,64,16,<m_i, 4, i, 0, 16, 1>);
+for i in range(16)
+	SBOX(m_i,4,m_i,4,$Sbox);
+CASCADE(16,<m_i, 4, i, 0, 16, 1>,state,64);
+
+XOR(state,64,RC3,64,state,64);
+XOR(state,64,RK[4],64,state,64);
+	
+DECOMPOSE(state,64,16,<p_i, 4, i, 0, 16, 1>);
+CASCADE(16,p_0,4,p_11,4,p_6,4,p_13,4,p_10,4,p_1,4,p_12,4,p_7,4,p_5,4,p_14,4,p_3,4,p_8,4,p_15,4,p_4,4,p_9,4,p_2,4,state,64);
+
+DECOMPOSE(state,64,16,<p_i, 4, i, 0, 16, 1>);
+XOR(p_1,4,p_2,4,temp1,4);
+XOR(temp1,4,p_3,4,pout_0,4);
+XOR(p_0,4,p_2,4,temp2,4);
+XOR(temp2,4,p_3,4,pout_1,4);
+XOR(p_0,4,p_1,4,temp3,4);
+XOR(temp3,4,p_3,4,pout_2,4);
+XOR(p_0,4,p_1,4,temp4,4);
+XOR(temp4,4,p_2,4,pout_3,4);
+XOR(p_5,4,p_6,4,temp5,4);
+XOR(temp5,4,p_7,4,pout_4,4);
+XOR(p_4,4,p_6,4,temp6,4);
+XOR(temp6,4,p_7,4,pout_5,4);
+XOR(p_4,4,p_5,4,temp7,4);
+XOR(temp7,4,p_7,4,pout_6,4);
+XOR(p_4,4,p_5,4,temp8,4);
+XOR(temp8,4,p_6,4,pout_7,4);
+XOR(p_9,4,p_10,4,temp9,4);
+XOR(temp9,4,p_11,4,pout_8,4);
+XOR(p_8,4,p_10,4,temp10,4);
+XOR(temp10,4,p_11,4,pout_9,4);
+XOR(p_8,4,p_9,4,temp11,4);
+XOR(temp11,4,p_11,4,pout_10,4);
+XOR(p_8,4,p_9,4,temp12,4);
+XOR(temp12,4,p_10,4,pout_11,4);
+XOR(p_13,4,p_14,4,temp13,4);
+XOR(temp13,4,p_15,4,pout_12,4);
+XOR(p_12,4,p_14,4,temp14,4);
+XOR(temp14,4,p_15,4,pout_13,4);
+XOR(p_12,4,p_13,4,temp15,4);
+XOR(temp15,4,p_15,4,pout_14,4);
+XOR(p_12,4,p_13,4,temp16,4);
+XOR(temp16,4,p_14,4,pout_15,4);
+CASCADE(16, pout_0,4,pout_1,4,pout_2,4,pout_3,4,pout_4,4,pout_5,4,pout_6,4,pout_7,4,pout_8,4,pout_9,4,pout_10,4,pout_11,4,pout_12,4,pout_13,4,pout_14,4,pout_15,4,state, 64); 				
+
+
+
+DECOMPOSE(state,64,16,<m_i, 4, i, 0, 16, 1>);
+for i in range(16)
+	SBOX(m_i,4,m_i,4,$Sbox);
+CASCADE(16,<m_i, 4, i, 0, 16, 1>,state,64);
+
+XOR(state,64,RC2,64,state,64);
+XOR(state,64,RK[3],64,state,64);
+
+DECOMPOSE(state,64,16,<p_i, 4, i, 0, 16, 1>);
+CASCADE(16,p_0,4,p_11,4,p_6,4,p_13,4,p_10,4,p_1,4,p_12,4,p_7,4,p_5,4,p_14,4,p_3,4,p_8,4,p_15,4,p_4,4,p_9,4,p_2,4,state,64);
+
+DECOMPOSE(state,64,16,<p_i, 4, i, 0, 16, 1>);
+XOR(p_1,4,p_2,4,temp1,4);
+XOR(temp1,4,p_3,4,pout_0,4);
+XOR(p_0,4,p_2,4,temp2,4);
+XOR(temp2,4,p_3,4,pout_1,4);
+XOR(p_0,4,p_1,4,temp3,4);
+XOR(temp3,4,p_3,4,pout_2,4);
+XOR(p_0,4,p_1,4,temp4,4);
+XOR(temp4,4,p_2,4,pout_3,4);
+XOR(p_5,4,p_6,4,temp5,4);
+XOR(temp5,4,p_7,4,pout_4,4);
+XOR(p_4,4,p_6,4,temp6,4);
+XOR(temp6,4,p_7,4,pout_5,4);
+XOR(p_4,4,p_5,4,temp7,4);
+XOR(temp7,4,p_7,4,pout_6,4);
+XOR(p_4,4,p_5,4,temp8,4);
+XOR(temp8,4,p_6,4,pout_7,4);
+XOR(p_9,4,p_10,4,temp9,4);
+XOR(temp9,4,p_11,4,pout_8,4);
+XOR(p_8,4,p_10,4,temp10,4);
+XOR(temp10,4,p_11,4,pout_9,4);
+XOR(p_8,4,p_9,4,temp11,4);
+XOR(temp11,4,p_11,4,pout_10,4);
+XOR(p_8,4,p_9,4,temp12,4);
+XOR(temp12,4,p_10,4,pout_11,4);
+XOR(p_13,4,p_14,4,temp13,4);
+XOR(temp13,4,p_15,4,pout_12,4);
+XOR(p_12,4,p_14,4,temp14,4);
+XOR(temp14,4,p_15,4,pout_13,4);
+XOR(p_12,4,p_13,4,temp15,4);
+XOR(temp15,4,p_15,4,pout_14,4);
+XOR(p_12,4,p_13,4,temp16,4);
+XOR(temp16,4,p_14,4,pout_15,4);
+CASCADE(16, pout_0,4,pout_1,4,pout_2,4,pout_3,4,pout_4,4,pout_5,4,pout_6,4,pout_7,4,pout_8,4,pout_9,4,pout_10,4,pout_11,4,pout_12,4,pout_13,4,pout_14,4,pout_15,4,state, 64); 				
+
+
+
+DECOMPOSE(state,64,16,<m_i, 4, i, 0, 16, 1>);
+for i in range(16)
+	SBOX(m_i,4,m_i,4,$Sbox);
+CASCADE(16,<m_i, 4, i, 0, 16, 1>,state,64);
+
+XOR(state,64,RC1,64,state,64);
+XOR(state,64,RK[2],64,state,64);
+
+DECOMPOSE(state,64,16,<p_i, 4, i, 0, 16, 1>);
+CASCADE(16,p_0,4,p_11,4,p_6,4,p_13,4,p_10,4,p_1,4,p_12,4,p_7,4,p_5,4,p_14,4,p_3,4,p_8,4,p_15,4,p_4,4,p_9,4,p_2,4,state,64);
+
+DECOMPOSE(state,64,16,<p_i, 4, i, 0, 16, 1>);
+XOR(p_1,4,p_2,4,temp1,4);
+XOR(temp1,4,p_3,4,pout_0,4);
+XOR(p_0,4,p_2,4,temp2,4);
+XOR(temp2,4,p_3,4,pout_1,4);
+XOR(p_0,4,p_1,4,temp3,4);
+XOR(temp3,4,p_3,4,pout_2,4);
+XOR(p_0,4,p_1,4,temp4,4);
+XOR(temp4,4,p_2,4,pout_3,4);
+XOR(p_5,4,p_6,4,temp5,4);
+XOR(temp5,4,p_7,4,pout_4,4);
+XOR(p_4,4,p_6,4,temp6,4);
+XOR(temp6,4,p_7,4,pout_5,4);
+XOR(p_4,4,p_5,4,temp7,4);
+XOR(temp7,4,p_7,4,pout_6,4);
+XOR(p_4,4,p_5,4,temp8,4);
+XOR(temp8,4,p_6,4,pout_7,4);
+XOR(p_9,4,p_10,4,temp9,4);
+XOR(temp9,4,p_11,4,pout_8,4);
+XOR(p_8,4,p_10,4,temp10,4);
+XOR(temp10,4,p_11,4,pout_9,4);
+XOR(p_8,4,p_9,4,temp11,4);
+XOR(temp11,4,p_11,4,pout_10,4);
+XOR(p_8,4,p_9,4,temp12,4);
+XOR(temp12,4,p_10,4,pout_11,4);
+XOR(p_13,4,p_14,4,temp13,4);
+XOR(temp13,4,p_15,4,pout_12,4);
+XOR(p_12,4,p_14,4,temp14,4);
+XOR(temp14,4,p_15,4,pout_13,4);
+XOR(p_12,4,p_13,4,temp15,4);
+XOR(temp15,4,p_15,4,pout_14,4);
+XOR(p_12,4,p_13,4,temp16,4);
+XOR(temp16,4,p_14,4,pout_15,4);
+CASCADE(16, pout_0,4,pout_1,4,pout_2,4,pout_3,4,pout_4,4,pout_5,4,pout_6,4,pout_7,4,pout_8,4,pout_9,4,pout_10,4,pout_11,4,pout_12,4,pout_13,4,pout_14,4,pout_15,4,state, 64); 				
+
+
+XOR(state,64,RK[1],64,state,64);
+XOR(state,64,RK[0],64,state,64);
+
+DECOMPOSE(state,64,2,state1,32,state2,32);
+CASCADE(2,state1,32,state2,32,PLAIN,64);
+
+
+
+ENDSWDEC
+
+
+
+SWKEYSCHENC:
+
+INPUT(1,KEY, 256,1);
+OUTPUT(1, RK,64,14);
+
+DECOMPOSE(KEY,256,4,<k_i, 64, i, 0, 4, 1>);
+CASCADE(1,k_0,64,RK[0],64);
+XOR(k_1,64,k_3,64,RK[1],64);
+
+
+DECOMPOSE(k_3,64,16,<t_i, 4, i, 0, 16, 1>);
+CASCADE(16,t_6,4,t_5,4,t_14,4,t_15,4,t_0,4,t_1,4,t_2,4,t_3,4,t_7,4,t_12,4,t_13,4,t_4,4,t_8,4,t_9,4,t_10,4,t_11,4,T1,64);
+XOR(k_1,64,T1,64,RK[2],64);
+DECOMPOSE(T1,64,16,<t_i, 4, i, 0, 16, 1>);
+CASCADE(16,t_6,4,t_5,4,t_14,4,t_15,4,t_0,4,t_1,4,t_2,4,t_3,4,t_7,4,t_12,4,t_13,4,t_4,4,t_8,4,t_9,4,t_10,4,t_11,4,T2,64);
+XOR(k_1,64,T2,64,RK[3],64);
+DECOMPOSE(T2,64,16,<t_i, 4, i, 0, 16, 1>);
+CASCADE(16,t_6,4,t_5,4,t_14,4,t_15,4,t_0,4,t_1,4,t_2,4,t_3,4,t_7,4,t_12,4,t_13,4,t_4,4,t_8,4,t_9,4,t_10,4,t_11,4,T3,64);
+XOR(k_1,64,T3,64,RK[4],64);
+DECOMPOSE(T3,64,16,<t_i, 4, i, 0, 16, 1>);
+CASCADE(16,t_6,4,t_5,4,t_14,4,t_15,4,t_0,4,t_1,4,t_2,4,t_3,4,t_7,4,t_12,4,t_13,4,t_4,4,t_8,4,t_9,4,t_10,4,t_11,4,T4,64);
+XOR(k_1,64,T4,64,RK[5],64);
+DECOMPOSE(T4,64,16,<t_i, 4, i, 0, 16, 1>);
+CASCADE(16,t_6,4,t_5,4,t_14,4,t_15,4,t_0,4,t_1,4,t_2,4,t_3,4,t_7,4,t_12,4,t_13,4,t_4,4,t_8,4,t_9,4,t_10,4,t_11,4,T5,64);
+XOR(k_1,64,T5,64,RK[6],64);
+XOR(k_1,64,alpha,64,temp1,64);
+XOR(temp1,64,T5,64,RK[7],64);
+XOR(temp1,64,T4,64,RK[8],64);
+XOR(temp1,64,T3,64,RK[9],64);
+XOR(temp1,64,T2,64,RK[10],64);
+XOR(temp1,64,T1,64,RK[11],64);
+XOR(temp1,64,k_3,64,RK[12],64);
+XOR(temp1,64,k_3,64,RK[12],64);
+RRS(k_0,64,kk0,64,1);
+RS(k_0,64,kk1,64,63);
+XOR(kk0,64,kk1,64,RK[13],64);
+
+ENDSWKEYSCHENC
